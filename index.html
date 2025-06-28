@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hora Solar Automática</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f0f8ff;
+    }
+    button {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hora Solar en tu Ubicación</h1>
+  <p>Haz clic en el botón para calcular la hora solar en tu ubicación actual.</p>
+  <button onclick="getSolarTime()">Obtener Hora Solar</button>
+  <p id="result"></p>
+
+  <script>
+    // Ecuación del tiempo (aproximación) en minutos
+    function getEquationOfTime(dayOfYear) {
+      const B = (360 / 365) * (dayOfYear - 81) * Math.PI / 180;
+      return 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+    }
+
+    function formatOffsetMinutes(minutes) {
+      const sign = minutes < 0 ? "-" : "+";
+      const abs = Math.abs(minutes);
+      const hrs = Math.floor(abs / 60);
+      const min = Math.round(abs % 60);
+      return `${sign}${hrs} h ${min} min`;
+    }
+
+    async function getSolarTime() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = "Solicitando ubicación...";
+
+      if (!navigator.geolocation) {
+        resultDiv.textContent = "Tu navegador no soporta geolocalización.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        try {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+
+          // Obtener ciudad desde Nominatim (OpenStreetMap)
+          const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
+          const geoData = await geoRes.json();
+          const address = geoData.address || {};
+          const cityName = address.city || address.town || address.village || address.state || "Ubicación desconocida";
+
+          // Obtener zona horaria desde el navegador
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+          // Hora local actual
+          const nowUTC = new Date();
+          const nowLocal = new Date(nowUTC.toLocaleString("en-US", { timeZone: timezone }));
+
+          // Día del año
+          const startOfYear = new Date(Date.UTC(nowLocal.getFullYear(), 0, 0));
+          const dayDiff = nowLocal - startOfYear;
+          const oneDay = 1000 * 60 * 60 * 24;
+          const dayOfYear = Math.floor(dayDiff / oneDay);
+
+          // Cálculos de hora solar
+          const eot = getEquationOfTime(dayOfYear); // en minutos
+          const offset = nowLocal.getTimezoneOffset() / -60; // horas
+          const standardMeridian = offset * 15; // grados
+          const longitudeCorrection = 4 * (standardMeridian - lng); // en minutos
+          const totalCorrection = eot + longitudeCorrection;
+
+          const solarTimeMs = nowLocal.getTime() - totalCorrection * 60 * 1000;
+          const solarTime = new Date(solarTimeMs);
+          const timeDiffMin = Math.round((nowLocal - solarTime) / (1000 * 60));
+
+          resultDiv.innerHTML = `
+            Ubicación: <strong>${cityName}</strong><br />
+            Hora actual: <strong>${nowLocal.toLocaleTimeString()}</strong><br />
+            Hora solar verdadera: <strong>${solarTime.toLocaleTimeString()}</strong><br />
+            Desfase solar: <strong>${formatOffsetMinutes(timeDiffMin)}</strong>
+          `;
+        } catch (err) {
+          console.error(err);
+          resultDiv.textContent = "Error al calcular la hora solar.";
+        }
+      }, (err) => {
+        resultDiv.textContent = "No se pudo obtener la ubicación: " + err.message;
+      });
+    }
+  </script>
+</body>
+</html>
+
