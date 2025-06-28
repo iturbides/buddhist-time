@@ -61,6 +61,9 @@
         return;
       }
 
+      // Guardar ciudad en localStorage
+      localStorage.setItem('lastCity', city);
+
       resultDiv.textContent = "Calculating...";
 
       try {
@@ -175,6 +178,15 @@
       ctx.lineTo(Math.cos(angleRad) * length, Math.sin(angleRad) * length);
       ctx.stroke();
     }
+
+    // Al cargar la página, recupera la última ciudad y ejecuta la consulta automáticamente
+    window.onload = function () {
+      const savedCity = localStorage.getItem('lastCity');
+      if (savedCity) {
+        document.getElementById('cityInput').value = savedCity;
+        getSolarTime();
+      }
+    };
   </script>
 </body>
 </html>
