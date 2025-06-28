@@ -3,37 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <title>Buddhist Solar Time</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      background-color: #f0f8ff;
-      text-align: center;
-    }
-    input, button {
-      padding: 0.5rem;
-      font-size: 1rem;
-      margin: 0.5rem 0;
-    }
-    #result {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-    }
-    canvas {
-      margin-top: 1.5rem;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 50%;
-    }
-  </style>
-</head>
+  <meta name="viewport" content="vidth=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/becss.css">
+  </head>
 <body>
-  <h1>Buddhist Solar Time</h1>
-  <p>Enter a city to see the current time, true solar time, and a solar analog clock.</p>
-  <input type="text" id="cityInput" placeholder="Example: Barcelona" />
-  <button onclick="getSolarTime()">Get Solar Time</button>
+  <div class="be-width-50 be-align-center">
+
+    <h1>Buddhist<br>Solar Time</h1>
+  <p>Enter a city to see the current time,<br> true solar time, and a solar analog clock.</p>
+  <input class="be-btn be-btn-ghost be-bdr-dashed be-bdr-2 be-btn-medium" type="text" id="cityInput" placeholder="Example: Barcelona" />
+  <button class="be-btn be-btn-ghost be-bdr-dashed be-bdr-2 be-btn-medium" onclick="getSolarTime()">Get Solar Time</button>
   <p id="result"></p>
-  <canvas id="solarClock" width="300" height="300"></canvas>
+
+  <canvas class="be-responsive" id="solarClock" width="400" height="400"></canvas>
 
   <script>
     const OPEN_CAGE_KEY = '2a34668ed89b4673a8cfc466fe9ffb1c';
@@ -188,6 +170,7 @@
       }
     };
   </script>
+</div>
 </body>
 </html>
 
