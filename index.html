@@ -1,103 +1,109 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hora Solar Automática</title>
+  <title>Buddhist Solar Time</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 2rem;
       background-color: #f0f8ff;
     }
-    button {
-      padding: 0.6rem 1rem;
+    input, button {
+      padding: 0.5rem;
       font-size: 1rem;
-      margin-top: 1rem;
+      margin: 0.5rem 0;
     }
     #result {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <h1>Hora Solar en tu Ubicación</h1>
-  <p>Haz clic en el botón para calcular la hora solar en tu ubicación actual.</p>
-  <button onclick="getSolarTime()">Obtener Hora Solar</button>
+  <h1>Buddhist Solar Time</h1>
+  <p>Enter a city to find out the current time, solar time and the gap between the two.</p>
+  <input type="text" id="cityInput" placeholder="Example: Barcelona" />
+  <button onclick="getSolarTime()">Get solar time</button>
   <p id="result"></p>
 
   <script>
-    // Ecuación del tiempo (aproximación) en minutos
+    const OPEN_CAGE_KEY = '2a34668ed89b4673a8cfc466fe9ffb1c'; // ← Reemplaza con tu clave de OpenCage
+
+    // Aproximación de la ecuación del tiempo (en minutos)
     function getEquationOfTime(dayOfYear) {
       const B = (360 / 365) * (dayOfYear - 81) * Math.PI / 180;
-      return 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+      const EoT = 9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B);
+      return EoT; // en minutos
     }
 
     function formatOffsetMinutes(minutes) {
       const sign = minutes < 0 ? "-" : "+";
-      const abs = Math.abs(minutes);
-      const hrs = Math.floor(abs / 60);
-      const min = Math.round(abs % 60);
+      const absMin = Math.abs(minutes);
+      const hrs = Math.floor(absMin / 60);
+      const min = Math.round(absMin % 60);
       return `${sign}${hrs} h ${min} min`;
     }
 
     async function getSolarTime() {
+      const city = document.getElementById('cityInput').value.trim();
       const resultDiv = document.getElementById('result');
-      resultDiv.textContent = "Solicitando ubicación...";
 
-      if (!navigator.geolocation) {
-        resultDiv.textContent = "Tu navegador no soporta geolocalización.";
+      if (!city) {
+        resultDiv.textContent = "Please enter a city.";
         return;
       }
 
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        try {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
+      resultDiv.textContent = "Calculating...";
 
-          // Obtener ciudad desde Nominatim (OpenStreetMap)
-          const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);
-          const geoData = await geoRes.json();
-          const address = geoData.address || {};
-          const cityName = address.city || address.town || address.village || address.state || "Ubicación desconocida";
+      try {
+        // 1. Obtener coordenadas y zona horaria
+        const geoRes = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(city)}&key=${OPEN_CAGE_KEY}`);
+        const geoData = await geoRes.json();
 
-          // Obtener zona horaria desde el navegador
-          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-          // Hora local actual
-          const nowUTC = new Date();
-          const nowLocal = new Date(nowUTC.toLocaleString("en-US", { timeZone: timezone }));
-
-          // Día del año
-          const startOfYear = new Date(Date.UTC(nowLocal.getFullYear(), 0, 0));
-          const dayDiff = nowLocal - startOfYear;
-          const oneDay = 1000 * 60 * 60 * 24;
-          const dayOfYear = Math.floor(dayDiff / oneDay);
-
-          // Cálculos de hora solar
-          const eot = getEquationOfTime(dayOfYear); // en minutos
-          const offset = nowLocal.getTimezoneOffset() / -60; // horas
-          const standardMeridian = offset * 15; // grados
-          const longitudeCorrection = 4 * (standardMeridian - lng); // en minutos
-          const totalCorrection = eot + longitudeCorrection;
-
-          const solarTimeMs = nowLocal.getTime() - totalCorrection * 60 * 1000;
-          const solarTime = new Date(solarTimeMs);
-          const timeDiffMin = Math.round((nowLocal - solarTime) / (1000 * 60));
-
-          resultDiv.innerHTML = `
-            Ubicación: <strong>${cityName}</strong><br />
-            Hora actual: <strong>${nowLocal.toLocaleTimeString()}</strong><br />
-            Hora solar verdadera: <strong>${solarTime.toLocaleTimeString()}</strong><br />
-            Desfase solar: <strong>${formatOffsetMinutes(timeDiffMin)}</strong>
-          `;
-        } catch (err) {
-          console.error(err);
-          resultDiv.textContent = "Error al calcular la hora solar.";
+        if (!geoData.results.length) {
+          resultDiv.textContent = "City not found.";
+          return;
         }
-      }, (err) => {
-        resultDiv.textContent = "No se pudo obtener la ubicación: " + err.message;
-      });
+
+        const { lat, lng } = geoData.results[0].geometry;
+        const timezone = geoData.results[0].annotations.timezone.name;
+        const offset = geoData.results[0].annotations.timezone.offset_sec / 3600;
+
+        // 2. Obtener hora local actual en la ciudad
+        const nowUTC = new Date();
+        const nowLocal = new Date(nowUTC.toLocaleString("en-US", { timeZone: timezone }));
+
+        // 3. Día del año
+        const startOfYear = new Date(Date.UTC(nowLocal.getFullYear(), 0, 0));
+        const diff = nowLocal - startOfYear;
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+
+        // 4. Ecuación del tiempo y corrección por longitud
+        const eot = getEquationOfTime(dayOfYear); // minutos
+        const standardMeridian = offset * 15; // grados
+        const longitudeCorrection = 4 * (standardMeridian - lng); // minutos
+
+        const totalCorrection = eot + longitudeCorrection;
+
+        // 5. Calcular hora solar (restar la corrección)
+        const solarTimeMs = nowLocal.getTime() - totalCorrection * 60 * 1000;
+        const solarTime = new Date(solarTimeMs);
+
+        // 6. Diferencia entre hora oficial y solar
+        const timeDiffMin = Math.round((nowLocal - solarTime) / (1000 * 60));
+
+        resultDiv.innerHTML = `
+          <strong>${city}</strong><br />
+          Current time: <strong>${nowLocal.toLocaleTimeString()}</strong><br />
+          True solar time: <strong>${solarTime.toLocaleTimeString()}</strong><br />
+          Solar flakes: <strong>${formatOffsetMinutes(timeDiffMin)}</strong>
+        `;
+      } catch (err) {
+        console.error(err);
+        resultDiv.textContent = "Error calculating solar time.";
+      }
     }
   </script>
 </body>
