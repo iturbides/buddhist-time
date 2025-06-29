@@ -3,9 +3,9 @@
 ****** Copyright 2023 Matías Iturbides ***/
 :root {
 	/* Brand Color Scheme */
-	--brand-color:#9E4A04;
-	--dark-shades:#1d2a35;
-	--dark-accent:#737373;
+	--brand-color:#F57C00;
+	--dark-shades:#212121;
+	--dark-accent:#795548;
 	--light-shades:#cae7e4;
 	--light-accent:#C8E6C9;
 	--dark-dark: #222222;
@@ -71,7 +71,7 @@ summary {
 	box-sizing: border-box;
 }
 html { scroll-behavior: smooth;
-background-color: #9E4A04;
+background-color: #F57C00;
 
 }
 body {
@@ -88,7 +88,7 @@ p {
 	font-size: var(--body-font-size); 
 	line-height: 1.5;
 	margin: .4em 0 .8em 0;
-	color: var(--wet-asphalt);
+	color: var(--dark-shades);
 	font-weight: 300;
 }
 section { padding: 1.2em; margin: 0; }
