@@ -5,3 +5,6 @@
 
 <p>This app helps practitioners respect the original intent of the precept by accurately determining solar noon based on their precise location, allowing for a more faithful and mindful observance of this ethical guideline.</p>
 
+https://buddhist-time.netlify.app
+
+
