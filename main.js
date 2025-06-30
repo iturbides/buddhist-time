@@ -89,7 +89,7 @@
       // Draw face
       ctx.beginPath();
       ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
-      ctx.fillStyle = "#fff";
+      ctx.fillStyle = "#FF9E08";
       ctx.fill();
       ctx.strokeStyle = "#000";
       ctx.lineWidth = 4;
