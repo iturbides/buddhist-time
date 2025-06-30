@@ -157,6 +157,7 @@
 const FILES_TO_CACHE = [
   '/',
   '/index.html',
+  '/about.html',
   '/css/becess.css',
   '/images/icon-192.png',
   '/images/icon-512.png',
