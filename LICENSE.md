@@ -1,6 +1,6 @@
 GNU General Public License (GPLv3)
 Buddhist Solar Time - Real Solar Time by cities
-Copyright (C) 2025 Matías Iturbides
+Copyright (C) 2025 Upāsaka Ānanda
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
