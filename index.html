@@ -10,10 +10,10 @@
 </head>
 
 <body>
-
-<div class="be-column-container be-align-center">
-    <div class="be-col-6 be-width-40">
-<div class="be-width-10 be-align-center"><img src="/images/main-logo.webp" alt="Buddhist Solar Time logo" width="200"></div>
+<div class="be-align-center"><img src="/images/main-logo.webp" alt="Buddhist Solar Time logo" width="110"></div>
+ 
+<div class="be-container be-align-center"> <!-- inicio container -->
+    <div class="be-width-40">
   <p>Enter a city to see the current time,<br> true solar time, and a solar analog clock.</p>
   <input class="be-btn be-btn-ghost be-text-white be-brand-color" type="text" id="cityInput" placeholder="Example: Barcelona" />
   <button class="be-btn be-bdr be-bdr-2 be-bg-white be-shadow-strong" onclick="getSolarTime()">Get Solar Time</button>
@@ -21,11 +21,13 @@
 </div>
 
 
-  <div class="be-col-6">
-  <canvas id="solarClock" width="250" height="250"></canvas>
+  <div>
+  <canvas id="solarClock" width="225" height="225"></canvas>
 </div>
 
-</div>
+</div> <!-- fin container-->
+
+
 <div class="be-align-center">
   <a class="be-padding-1" href="/about.html"><img src="/images/info.svg" alt="about"></a>
   <a class="be-padding-1" href="https://github.com/iturbides/buddhist-time" alt="github repositorie" target="_blank"><img src="/images/github.svg"></a>
