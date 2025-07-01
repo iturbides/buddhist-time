@@ -56,6 +56,10 @@ You can create a shortcut manually:
 
 firefox --new-window https://buddhist-time.netlify.app
 
+![Running on Linux as App](./images/linux-app.png)
+
+
+![Running on Android as App](./images/android-app.jpg)
 
 
 
