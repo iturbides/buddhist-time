@@ -3,12 +3,12 @@
 ****** Copyright 2023 Matías Iturbides ***/
 :root {
 	/* Brand Color Scheme */
-	--brand-color:#F57C00;
+	--brand-color:#BB691D;
 	--dark-shades:#212121;
 	--dark-accent:#795548;
 	--light-shades:#cae7e4;
 	--light-accent:#C8E6C9;
-	--dark-dark: #222222;
+	--dark-dark: #4E3D27;
 	--selected-text: #ffe066;
 	--black: #000000;
 	--white: #ffffff;
@@ -71,7 +71,7 @@ summary {
 	box-sizing: border-box;
 }
 html { scroll-behavior: smooth;
-background-color: #EDF6EC;
+background-color: #DDC194;
 
 }
 body {

@@ -63,10 +63,10 @@
           const timeDiffMin = Math.round((nowLocal - solarTime) / (1000 * 60));
 
           resultDiv.innerHTML = `
-           <h4> <strong>${city}</strong><br /></h4>
+           <strong>${city}</strong><br />
             Current time: <strong>${nowLocal.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
-         Solar offset: <strong>${formatOffsetMinutes(timeDiffMin)}</strong>
-<h4>True solar time: <strong>${solarTime.toLocaleTimeString("en-GB", { hour12: false })}</strong><br /></h4>
+         Solar offset: <strong>${formatOffsetMinutes(timeDiffMin)}</strong><br>
+True solar time: <strong>${solarTime.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
 
           `;
 
@@ -89,7 +89,7 @@
       // Draw face
       ctx.beginPath();
       ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
-      ctx.fillStyle = "#FF9E08";
+      ctx.fillStyle = "#BB691D";
       ctx.fill();
       ctx.strokeStyle = "#000";
       ctx.lineWidth = 4;
