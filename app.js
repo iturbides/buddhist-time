@@ -1,5 +1,4 @@
 
- 
     const OPEN_CAGE_KEY = '2a34668ed89b4673a8cfc466fe9ffb1c';
     let intervalId;
 
@@ -153,13 +152,4 @@ True solar time: <strong>${solarTime.toLocaleTimeString("en-GB", { hour12: false
       }
     };
 
-
-const FILES_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/about.html',
-  '/css/becess.css',
-  '/images/icon-192.png',
-  '/images/icon-512.png',
-];
 

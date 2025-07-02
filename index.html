@@ -5,6 +5,7 @@
   <title>Buddhist Solar Time</title>
   <meta name="viewport" content="vidth=device-width, initial-scale=1">
 <meta name="keywords" content="solar time, buddhist solar time, real solar time">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="/css/becss.css">
 <link rel="icon" href="/images/favicon.ico" />
 </head>
@@ -36,7 +37,17 @@
 </div>
 
 <!-- call javascript file -->
-<script src="main.js"></script> 
+<script src="app.js"></script>
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker registered', reg))
+          .catch(err => console.log('Service Worker registration failed', err));
+      });
+    }
+  </script>
 
 </body>
 </html>
