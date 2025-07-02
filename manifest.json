@@ -3,7 +3,7 @@
   "short_name": "Buddhist Time",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#33210F",
+  "background_color": "#DDC194",
   "theme_color": "#222222",
   "orientation": "portrait",
   "icons": [
@@ -19,3 +19,4 @@
     }
   ]
 }
+
