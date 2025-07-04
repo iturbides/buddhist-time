@@ -1,4 +1,4 @@
-const CACHE_NAME = 'buddhist-solar-time-cache-v1.5';
+const CACHE_NAME = 'buddhist-solar-time-cache-v1.6';
 
 const FILES_TO_CACHE = [
   '/',

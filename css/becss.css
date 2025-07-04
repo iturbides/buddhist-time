@@ -143,7 +143,7 @@ p h5, p h6 { margin-top: 1em; }
 a:link, p a:link,
 p a:visited, a:visited,
 span a:link {
-	color: var(--light-shades);
+	color: var(--brand-color);
 }
 ::selection {
   color: black;
