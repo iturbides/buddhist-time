@@ -28,7 +28,7 @@ async function getSolarTime() {
   try {
     const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`, {
       headers: {
-        'User-Agent': 'solar-time-app/1.0 (iturbides@aol.es)' // Personaliza este campo
+        'User-Agent': 'solar-time-app/1.0 (upasaka.ananda@tuta.io)' // Personaliza este campo
       }
     });
     const geoData = await geoRes.json();
