@@ -1,16 +1,14 @@
-const CACHE_NAME = 'buddhist-solar-time-cache-v1.6';
+const CACHE_NAME = 'buddhist-solar-time-cache-v1.7';
 
 const FILES_TO_CACHE = [
   '/',
     '/index.html',
-    '/about.html',
     '/app.js',
     '/LICENSE.md',
     '/README.md',
     '/css/becess.css',
     '/images/favicon.ico',
     '/images/github.svg',
-    '/images/info.svg',
     '/images/home.svg',
     '/images/main-logo.webp',
     '/images/main-logo.png',
