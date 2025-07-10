@@ -115,7 +115,7 @@ function drawSundialClock(date) {
   ctx.stroke();
 
   // Horas en números romanos de V a XX
-  ctx.font = `${radius * 0.12}px serif`;
+  ctx.font = `${radius * 0.09}px serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = "#000";
@@ -128,7 +128,7 @@ function drawSundialClock(date) {
   for (let i = 0; i < hourLabels.length; i++) {
     const angle = Math.PI * (i / (hourLabels.length - 1));
     const x = centerX + Math.cos(angle) * (radius - 30);
-    const y = centerY + Math.sin(angle) * (radius - 30);
+    const y = centerY + Math.sin(angle) * (radius - 15);
     ctx.fillText(hourLabels[i], x, y);
   }
 
