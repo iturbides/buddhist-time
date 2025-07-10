@@ -69,7 +69,7 @@ async function getSolarTime() {
         True solar time: <strong>${solarTime.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
       `;
 
-      drawSundialClock(solarTime);
+      drawAnalogClock(solarTime);
     }, 1000);
   } catch (err) {
     console.error(err);
@@ -77,74 +77,81 @@ async function getSolarTime() {
   }
 }
 
-function drawSundialClock(date) {
+function drawAnalogClock(date) {
   const canvas = document.getElementById("solarClock");
   const ctx = canvas.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
-  const radius = width / 2;
+  const radius = canvas.height / 2;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.clearRect(0, 0, width, height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.translate(radius, radius);
 
-  const centerX = width / 2;
-  const centerY = height * 0.2;
-
-  // Fondo oscuro fuera de horas solares
-  const hour = date.getHours() + date.getMinutes() / 60;
-  if (hour < 5 || hour > 20) {
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, width, height);
-    return;
-  }
-
-  // Semicírculo inferior
-//  ctx.beginPath();
-//  ctx.arc(centerX, centerY, radius - 10, 0, Math.PI, true);
-//  ctx.fillStyle = "#BB691D";
-//  ctx.fill();
-//  ctx.lineWidth = 4;
-//  ctx.strokeStyle = "#000";
-//  ctx.stroke();
-
-  // Gnomon
+  // Background with radial gradient
+  const grad = ctx.createRadialGradient(0, 0, radius * 0.2, 0, 0, radius);
+  grad.addColorStop(0, "#FFD27F");
+  grad.addColorStop(1, "#BB691D");
+  ctx.fillStyle = grad;
   ctx.beginPath();
-  ctx.moveTo(centerX, centerY);
-  ctx.lineTo(centerX, centerY - 30);
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = "#5C2C06";
+  ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
+  ctx.fill();
+
+  ctx.strokeStyle = "#333";
+  ctx.lineWidth = 4;
   ctx.stroke();
 
-  // Horas en números romanos de V a XX
-  ctx.font = `${radius * 0.12}px serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = "#000";
-  const hourLabels = [
-    "⚬", "VI", "⚬", "VIII", "⚬", "X", "⚬",
-    "☀", "⚬", "XIV", "⚬", "XVI", "⚬",
-    "XVIII", "⚬", "XX"
-  ];
-
-  for (let i = 0; i < hourLabels.length; i++) {
-    const angle = Math.PI * (i / (hourLabels.length - 1));
-    const x = centerX + Math.cos(angle) * (radius - 30);
-    const y = centerY + Math.sin(angle) * (radius - 30);
-    ctx.fillText(hourLabels[i], x, y);
+  // Hour marks
+  for (let i = 0; i < 60; i++) {
+    let angle = (Math.PI / 30) * i;
+    let outer = radius - 5;
+    let inner = i % 5 === 0 ? radius - 15 : radius - 10;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(angle) * outer, Math.sin(angle) * outer);
+    ctx.lineTo(Math.cos(angle) * inner, Math.sin(angle) * inner);
+    ctx.lineWidth = i % 5 === 0 ? 2 : 1;
+    ctx.strokeStyle = "#000";
+    ctx.stroke();
   }
 
-  // Sombra (aguja solar)
-  const sunHour = date.getHours() + date.getMinutes() / 60;
-  const t = (sunHour - 5) / (20 - 5); // Normalizar entre 0 y 1
-  const angle = Math.PI * t;
-  const shadowLength = radius - 40;
+  // Hour numbers
+  ctx.font = radius * 0.15 + "px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  for (let num = 1; num <= 12; num++) {
+    const angle = (num * Math.PI) / 6;
+    const x = Math.cos(angle - Math.PI / 2) * (radius * 0.75);
+    const y = Math.sin(angle - Math.PI / 2) * (radius * 0.75);
+    ctx.fillStyle = "#000";
+    ctx.fillText(num.toString(), x, y);
+  }
 
+  const hour = date.getHours() % 12;
+  const minute = date.getMinutes();
+  const hourAngleDeg = (hour + minute / 60) * 30;
+
+  // Gnomon fijo
+  drawFixedGnomon(ctx, radius * 0.4, "#222");
+
+  // Sombra que marca la hora
+  drawShadowPointer(ctx, hourAngleDeg, radius * 0.9, "#000000aa");
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+
+function drawFixedGnomon(ctx, height, color) {
   ctx.beginPath();
-  ctx.moveTo(centerX, centerY);
-  ctx.lineTo(
-    centerX + Math.cos(angle) * shadowLength,
-    centerY + Math.sin(angle) * shadowLength
-  );
-  ctx.strokeStyle = "rgba(0, 0, 0, 0.6)";
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-5, -height);
+  ctx.lineTo(5, -height);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawShadowPointer(ctx, angleDeg, length, color) {
+  const angleRad = (Math.PI / 180) * angleDeg - Math.PI / 2;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(Math.cos(angleRad) * length, Math.sin(angleRad) * length);
+  ctx.strokeStyle = color;
   ctx.lineWidth = 6;
   ctx.lineCap = "round";
   ctx.stroke();
