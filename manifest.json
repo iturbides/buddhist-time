@@ -3,7 +3,7 @@
   "short_name": "Sundial",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#DDC194",
+  "background_color": "#292217",
   "theme_color": "#222222",
   "orientation": "portrait",
   "icons": [
