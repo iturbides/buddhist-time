@@ -1,4 +1,4 @@
-const CACHE_NAME = 'buddhist-solar-time-cache-v2.0';
+const CACHE_NAME = 'buddhist-sundial-cache-v2.2';
 
 const FILES_TO_CACHE = [
   '/',
@@ -9,7 +9,6 @@ const FILES_TO_CACHE = [
     '/css/becess.css',
     '/images/favicon.ico',
     '/images/github.svg',
-    '/images/home.svg',
     '/images/main-logo.webp',
     '/images/main-logo.png',
     '/images/icon-192.png',

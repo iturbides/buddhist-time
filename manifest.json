@@ -1,6 +1,6 @@
 {
-  "name": "Buddhist Solar Time",
-  "short_name": "SolarTime",
+  "name": "Buddhist Sundial",
+  "short_name": "Sundial",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#DDC194",
