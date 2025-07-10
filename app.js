@@ -89,13 +89,24 @@ function drawSundialClock(date) {
   const centerX = width / 2;
   const centerY = height * 0.2;
 
-  // Fondo oscuro fuera de horas solares
-  const hour = date.getHours() + date.getMinutes() / 60;
-  if (hour < 5 || hour > 20) {
-    ctx.fillStyle = "#000";
-    ctx.fillRect(0, 0, width, height);
-    return;
-  }
+
+// Fondo oscuro fuera de horas solares
+const hour = date.getHours() + date.getMinutes() / 60;
+if (hour < 5 || hour > 20) {
+  ctx.fillStyle = "#292217";
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.fillStyle = "#EEE8D5"; // color claro tipo pergamino
+  ctx.font = "14px serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("Sundial visible between 5h and 20h", centerX, height / 2);
+  
+  return;
+}
+
+
+
 
   // Semicírculo inferior
 //  ctx.beginPath();
@@ -118,10 +129,10 @@ function drawSundialClock(date) {
   ctx.font = `${radius * 0.09}px serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = "#000";
+  ctx.fillStyle = "#BB691D";
   const hourLabels = [
     "⚬", "VI", "⚬", "VIII", "⚬", "X", "⚬",
-    "☀", "⚬", "XIV", "⚬", "XVI", "⚬",
+    "🔆", "⚬", "XIV", "⚬", "XVI", "⚬",
     "XVIII", "⚬", "XX"
   ];
 

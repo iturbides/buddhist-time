@@ -76,7 +76,7 @@ summary {
 	box-sizing: border-box;
 }
 html { scroll-behavior: smooth;
-background-color: #DDC194;
+background-color: #292217;
 }
 body {
 	font-family: var(--font-type-4);
@@ -92,7 +92,7 @@ p {
 	font-size: var(--body-font-size); 
 	line-height: 1.5;
 	margin: .4em 0 .8em 0;
-	color: var(--midnight-blue);
+	color: var(--brand-color);
 	font-weight: 400;
 }
 section { padding: 1.2em; margin: 0; }
