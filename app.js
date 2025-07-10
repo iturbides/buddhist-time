@@ -28,7 +28,7 @@ async function getSolarTime() {
   try {
     const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`, {
       headers: {
-        'User-Agent': 'solar-time-app/1.0 (upasaka.ananda@tuta.io)' // Personaliza este campo
+        'User-Agent': 'solar-time-app/1.0 (upasaka.ananda@tuta.io)'
       }
     });
     const geoData = await geoRes.json();
@@ -69,7 +69,7 @@ async function getSolarTime() {
         True solar time: <strong>${solarTime.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
       `;
 
-      drawAnalogClock(solarTime);
+      drawSundialClock(solarTime);
     }, 1000);
   } catch (err) {
     console.error(err);
@@ -77,64 +77,76 @@ async function getSolarTime() {
   }
 }
 
-function drawAnalogClock(date) {
+function drawSundialClock(date) {
   const canvas = document.getElementById("solarClock");
   const ctx = canvas.getContext("2d");
-  const radius = canvas.height / 2;
+  const width = canvas.width;
+  const height = canvas.height;
+  const radius = width / 2;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.translate(radius, radius);
+  ctx.clearRect(0, 0, width, height);
 
+  const centerX = width / 2;
+  const centerY = height * 0.2;
+
+  // Fondo oscuro fuera de horas solares
+  const hour = date.getHours() + date.getMinutes() / 60;
+  if (hour < 5 || hour > 20) {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, width, height);
+    return;
+  }
+
+  // Semicírculo inferior
+//  ctx.beginPath();
+//  ctx.arc(centerX, centerY, radius - 10, 0, Math.PI, true);
+//  ctx.fillStyle = "#BB691D";
+//  ctx.fill();
+//  ctx.lineWidth = 4;
+//  ctx.strokeStyle = "#000";
+//  ctx.stroke();
+
+  // Gnomon
   ctx.beginPath();
-  ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
-  ctx.fillStyle = "#BB691D";
-  ctx.fill();
-  ctx.strokeStyle = "#000";
-  ctx.lineWidth = 4;
+  ctx.moveTo(centerX, centerY);
+  ctx.lineTo(centerX, centerY - 30);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = "#5C2C06";
   ctx.stroke();
 
-  for (let i = 0; i < 60; i++) {
-    let angle = (Math.PI / 30) * i;
-    let outer = radius - 5;
-    let inner = i % 5 === 0 ? radius - 15 : radius - 10;
-    ctx.beginPath();
-    ctx.moveTo(Math.cos(angle) * outer, Math.sin(angle) * outer);
-    ctx.lineTo(Math.cos(angle) * inner, Math.sin(angle) * inner);
-    ctx.lineWidth = i % 5 === 0 ? 2 : 1;
-    ctx.strokeStyle = "#000";
-    ctx.stroke();
-  }
-
-  ctx.font = radius * 0.15 + "px Arial";
+  // Horas en números romanos de V a XX
+  ctx.font = `${radius * 0.12}px serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  for (let num = 1; num <= 12; num++) {
-    const angle = (num * Math.PI) / 6;
-    const x = Math.cos(angle - Math.PI / 2) * (radius * 0.75);
-    const y = Math.sin(angle - Math.PI / 2) * (radius * 0.75);
-    ctx.fillStyle = "#000";
-    ctx.fillText(num.toString(), x, y);
+  ctx.fillStyle = "#000";
+  const hourLabels = [
+    "⚬", "VI", "⚬", "VIII", "⚬", "X", "⚬",
+    "☀", "⚬", "XIV", "⚬", "XVI", "⚬",
+    "XVIII", "⚬", "XX"
+  ];
+
+  for (let i = 0; i < hourLabels.length; i++) {
+    const angle = Math.PI * (i / (hourLabels.length - 1));
+    const x = centerX + Math.cos(angle) * (radius - 30);
+    const y = centerY + Math.sin(angle) * (radius - 30);
+    ctx.fillText(hourLabels[i], x, y);
   }
 
-  const hour = date.getHours() % 12;
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
+  // Sombra (aguja solar)
+  const sunHour = date.getHours() + date.getMinutes() / 60;
+  const t = (sunHour - 5) / (20 - 5); // Normalizar entre 0 y 1
+  const angle = Math.PI * t;
+  const shadowLength = radius - 40;
 
-  drawHand(ctx, (hour + minute / 60) * 30, radius * 0.5, 6);
-  drawHand(ctx, (minute + second / 60) * 6, radius * 0.8, 4);
-  drawHand(ctx, second * 6, radius * 0.9, 2, "red");
-
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-}
-
-function drawHand(ctx, angleDeg, length, width, color = "black") {
-  const angleRad = (Math.PI / 180) * angleDeg - Math.PI / 2;
   ctx.beginPath();
-  ctx.lineWidth = width;
+  ctx.moveTo(centerX, centerY);
+  ctx.lineTo(
+    centerX + Math.cos(angle) * shadowLength,
+    centerY + Math.sin(angle) * shadowLength
+  );
+  ctx.strokeStyle = "rgba(0, 0, 0, 0.6)";
+  ctx.lineWidth = 6;
   ctx.lineCap = "round";
-  ctx.strokeStyle = color;
-  ctx.moveTo(0, 0);
-  ctx.lineTo(Math.cos(angleRad) * length, Math.sin(angleRad) * length);
   ctx.stroke();
 }
 
