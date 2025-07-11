@@ -11,6 +11,17 @@
 
 https://buddhist-time.netlify.app
 
+
+![How to use](./images/sundial-details.png)
+
+
+![Out of sun times](./images/sundial-details-2.png)
+
+
+
+
+
+
 ### How to Add Buddhist Sundial App to Your Home Screen
 
 You can easily access the Buddhist Sundial app from your home screen like a native app. Follow the instructions below based on your device and browser:
