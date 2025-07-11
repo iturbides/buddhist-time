@@ -1,5 +1,5 @@
 <h1>About Buddhist Sundial App</h1>
-
+<h2>Namo tassa bhagavato arahato sammā-sambuddhassa</h2>
 
 <p>The sixth precept in Buddhism advises practitioners to refrain from eating at improper times, traditionally meaning after solar noon—the time when the sun is at its highest point. During the Buddha’s time, solar noon was observed not by standardized clocks but through the shadow of the sun, often using simple instruments like gnomons—vertical rods or markers that indicate the sun's position by the length and angle of their shadow. This natural method allowed for a direct connection with the sun’s movement in the sky.</p>
 
@@ -70,11 +70,4 @@ You can create a shortcut manually:
 
 
 firefox --new-window https://buddhist-time.netlify.app
-
-![Running on Linux as App](./images/linux-app.png)
-
-
-![Running on Android as App](./images/android-app.jpg)
-
-
 
