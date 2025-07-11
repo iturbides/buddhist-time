@@ -64,7 +64,7 @@ async function getSolarTime() {
 
       resultDiv.innerHTML = `
         <strong>${city}</strong><br />
-        Current time: <strong>${nowLocal.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
+        Device time: <strong>${nowLocal.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
         Solar offset: <strong>${formatOffsetMinutes(timeDiffMin)}</strong><br />
         True solar time: <strong>${solarTime.toLocaleTimeString("en-GB", { hour12: false })}</strong><br />
       `;
