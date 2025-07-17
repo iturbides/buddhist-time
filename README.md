@@ -7,6 +7,37 @@
 
 <p>This app helps practitioners respect the original intent of the precept by accurately determining solar noon based on their precise location, allowing for a more faithful and mindful observance of this ethical guideline.</p>
 
+
+## 🧠⏳ Biological Clocks, Circadian Rhythms, and the Role of the Sun
+
+All living organisms—from plants and animals to humans—possess internal biological clocks that regulate essential functions like sleep, metabolism, hormone production, digestion, body temperature, and cognitive performance. These internal systems follow what scientists call the **circadian rhythm**, a roughly 24-hour cycle that is deeply influenced by one central cue: **the sun**.
+
+In nature, biological clocks align closely with the **solar cycle**. The rising and setting of the sun provide light signals that synchronize our internal clocks with the external world—a process known as **entrainment**. In humans, the master clock resides in the **suprachiasmatic nucleus (SCN)** of the brain, which receives direct input from light-sensitive cells in the eyes. This master clock, in turn, helps coordinate peripheral clocks in other tissues and organs throughout the body.
+
+However, due to **modern lifestyles shaped by social, political, and economic demands**, most people now follow what researchers call **"social time"**—fixed schedules dictated by time zones, work hours, and artificial lighting, rather than the natural movement of the sun. This disconnect between **biological time** and **social time** is referred to as **social jet lag**, a chronic state of circadian misalignment. A growing body of research links this misalignment to a variety of health problems, including:
+
+- Sleep disorders  
+- Obesity  
+- Depression  
+- Cardiovascular disease  
+- Impaired immune function  
+- Certain cancers
+
+Understanding and respecting solar time can be an important step toward realigning our lives with natural rhythms. This is where the **Buddhist Sundial app** becomes especially useful.
+
+Unlike standard clocks or mobile devices that display civil time based on arbitrary time zones, this app calculates the actual **solar time** at your specific location, helping you reconnect with nature’s original clock.
+
+By showing you when **true solar noon** occurs—when the sun is at its highest point in the sky—the app can serve as a practical tool for:
+
+- Understanding how your biological clock may be out of sync with your daily schedule  
+- Making more mindful decisions about meal times, sleep, and light exposure  
+- Supporting spiritual or ethical practices that depend on natural timing, such as the sixth Buddhist precept
+
+In essence, **Buddhist Sundial** is more than a utility—it’s a gentle invitation to reflect on the rhythm of life itself, and a helpful companion in restoring harmony between your inner world and the cosmos.
+
+
+
+
 <h3>Screenshot</h3>
 
 
