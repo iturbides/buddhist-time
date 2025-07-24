@@ -126,7 +126,7 @@ if (hour < 6 || hour > 18) {
   ctx.stroke();
 
   // Horas en números romanos de VI a XVIII
-  ctx.font = `${radius * 0.09}px serif`;
+  ctx.font = `${radius * 0.10}px serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = "#BB691D";
@@ -139,7 +139,7 @@ if (hour < 6 || hour > 18) {
   for (let i = 0; i < hourLabels.length; i++) {
     const angle = Math.PI * (i / (hourLabels.length - 1));
     const x = centerX + Math.cos(angle) * (radius - 30);
-    const y = centerY + Math.sin(angle) * (radius - 15);
+    const y = centerY + Math.sin(angle) * (radius - 30);
     ctx.fillText(hourLabels[i], x, y);
   }
 
