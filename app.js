@@ -132,8 +132,8 @@ if (hour < 6 || hour > 18) {
   ctx.fillStyle = "#BB691D";
   const hourLabels = [
     "VI", "VII", "VIII", "IX", "X", "XI",
-    "🔆", "XIII", "XIV", "XV", "XVI", "XVII",
-    "XVIII"
+    "🔆", "I", "II", "III", "IV", "V",
+    "VI"
   ];
 
   for (let i = 0; i < hourLabels.length; i++) {
