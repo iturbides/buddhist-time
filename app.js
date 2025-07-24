@@ -92,7 +92,7 @@ function drawSundialClock(date) {
 
 // Fondo oscuro fuera de horas solares
 const hour = date.getHours() + date.getMinutes() / 60;
-if (hour < 5 || hour > 20) {
+if (hour < 6 || hour > 18) {
   ctx.fillStyle = "#292217";
   ctx.fillRect(0, 0, width, height);
 
@@ -100,7 +100,7 @@ if (hour < 5 || hour > 20) {
   ctx.font = "14px serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText("Sundial visible between 5h and 20h", centerX, height / 2);
+  ctx.fillText("Sundial visible between 6h and 18h", centerX, height / 2);
   
   return;
 }
@@ -125,15 +125,15 @@ if (hour < 5 || hour > 20) {
   ctx.strokeStyle = "#5C2C06";
   ctx.stroke();
 
-  // Horas en números romanos de V a XX
+  // Horas en números romanos de VI a XVIII
   ctx.font = `${radius * 0.09}px serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = "#BB691D";
   const hourLabels = [
-    "⚬", "VI", "⚬", "VIII", "⚬", "X", "⚬",
-    "🔆", "⚬", "XIV", "⚬", "XVI", "⚬",
-    "XVIII", "⚬", "XX"
+    "VI", "VII", "VIII", "IX", "X", "XI",
+    "🔆", "XIII", "XIV", "XV", "XVI", "XVII",
+    "XVIII"
   ];
 
   for (let i = 0; i < hourLabels.length; i++) {
@@ -145,7 +145,7 @@ if (hour < 5 || hour > 20) {
 
   // Sombra (aguja solar)
   const sunHour = date.getHours() + date.getMinutes() / 60;
-  const t = (sunHour - 5) / (20 - 5); // Normalizar entre 0 y 1
+  const t = (sunHour - 6) / (18 - 6); // Normalizar entre 0 y 1
   const angle = Math.PI * t;
   const shadowLength = radius - 40;
 
