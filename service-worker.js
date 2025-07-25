@@ -1,4 +1,4 @@
-const CACHE_NAME = 'buddhist-sundial-cache-v2.3';
+const CACHE_NAME = 'buddhist-sundial-cache-v2.4';
 
 const FILES_TO_CACHE = [
   '/',
@@ -6,13 +6,14 @@ const FILES_TO_CACHE = [
     '/app.js',
     '/LICENSE.md',
     '/README.md',
-    '/css/becess.css',
+    '/css/becss.css',
+    '/manifest.json',
     '/images/favicon.ico',
     '/images/github.svg',
     '/images/main-logo.webp',
     '/images/main-logo.png',
     '/images/icon-192.png',
-    '/images/icon-512.png',
+    '/images/icon-512.png'
 ];
 
 self.addEventListener('install', evt => {
