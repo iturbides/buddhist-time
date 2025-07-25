@@ -73,7 +73,7 @@ async function getSolarTime() {
     }, 1000);
   } catch (err) {
     console.error(err);
-    resultDiv.textContent = "Error calculating solar time.";
+    resultDiv.textContent = "Connection with OSM not established.";
   }
 }
 
