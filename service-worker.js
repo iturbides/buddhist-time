@@ -1,4 +1,4 @@
-const CACHE_NAME = 'buddhist-sundial-cache-v2.4';
+const CACHE_NAME = 'buddhist-sundial-cache-v2.5';
 
 const FILES_TO_CACHE = [
   '/',
