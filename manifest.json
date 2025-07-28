@@ -2,7 +2,7 @@
   "name": "Buddhist Sundial",
   "short_name": "Sundial",
   "start_url": "/",
-  "display": "standalone",
+  "display": "minimal-ui",
   "background_color": "#292217",
   "theme_color": "#222222",
   "orientation": "portrait",
@@ -17,6 +17,10 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "window-controls-overlay"
   ]
 }
-
