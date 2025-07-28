@@ -93,7 +93,7 @@ function drawSundialClock(date) {
 // Fondo oscuro fuera de horas solares
 const hour = date.getHours() + date.getMinutes() / 60;
 if (hour < 6 || hour > 18) {
-  ctx.fillStyle = "#292217";
+  ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, width, height);
 
   ctx.fillStyle = "#EEE8D5"; // color claro tipo pergamino
@@ -155,7 +155,7 @@ if (hour < 6 || hour > 18) {
     centerX + Math.cos(angle) * shadowLength,
     centerY + Math.sin(angle) * shadowLength
   );
-  ctx.strokeStyle = "rgba(0, 0, 0, 0.6)";
+  ctx.strokeStyle = "#303030";
   ctx.lineWidth = 6;
   ctx.lineCap = "round";
   ctx.stroke();

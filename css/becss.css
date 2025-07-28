@@ -76,7 +76,7 @@ summary {
 	box-sizing: border-box;
 }
 html { scroll-behavior: smooth;
-background-color: #292217;
+background-color: #000000;
 }
 body {
 	font-family: var(--font-type-4);
